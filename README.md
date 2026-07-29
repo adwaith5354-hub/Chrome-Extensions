@@ -1,5 +1,9 @@
 # Youtube😎 - Ad Skipper Extension
 
+<p align="center">
+  <img src="screenshot.png" alt="Ad Skipper Popup UI" width="300">
+</p>
+
 A lightweight, modern Google Chrome extension that automatically skips and fast-forwards YouTube ads. 
 
 It also keeps track of how much total time of your life it has saved you! ⏱️
