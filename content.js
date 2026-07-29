@@ -68,8 +68,8 @@ function skipAds() {
     }
   }
 
-  // Click the 'Skip Ad' button if it appears
-  const skipButton = document.querySelector('.ytp-ad-skip-button, .ytp-ad-skip-button-modern, .ytp-skip-ad-button, .ytp-ad-skip-button-container, button.ytp-ad-skip-button-modern');
+  // Click the 'Skip Ad' button if it appears (covers new pill buttons and overlay ads)
+  const skipButton = document.querySelector('.ytp-ad-skip-button, .ytp-ad-skip-button-modern, .ytp-skip-ad-button, .ytp-ad-skip-button-container, button.ytp-ad-skip-button-modern, .ytp-ad-skip-button-slot, .videoAdUiSkipButton, .ytp-ad-overlay-close-button');
   if (skipButton) {
     skipButton.click();
   }
