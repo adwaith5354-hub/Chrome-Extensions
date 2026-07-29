@@ -54,10 +54,13 @@ function skipAds() {
           }
         }
         
-        // Fast forward to the end of the ad if possible
-        video.playbackRate = 16.0; // Speed up the video drastically
-        video.muted = true;        // Mute it
-        video.currentTime = video.duration;
+        // Fast forward to the very end of the ad (minus 0.1s so YouTube registers it naturally)
+        video.playbackRate = 16.0; 
+        video.muted = true;        
+        
+        if (video.currentTime < video.duration - 0.1) {
+          video.currentTime = video.duration - 0.1;
+        }
       }
     } else {
       // If we are watching a regular video, reset the ad tracker
@@ -66,7 +69,7 @@ function skipAds() {
   }
 
   // Click the 'Skip Ad' button if it appears
-  const skipButton = document.querySelector('.ytp-ad-skip-button, .ytp-ad-skip-button-modern, .ytp-skip-ad-button');
+  const skipButton = document.querySelector('.ytp-ad-skip-button, .ytp-ad-skip-button-modern, .ytp-skip-ad-button, .ytp-ad-skip-button-container, button.ytp-ad-skip-button-modern');
   if (skipButton) {
     skipButton.click();
   }
