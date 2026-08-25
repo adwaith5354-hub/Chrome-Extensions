@@ -1,13 +1,11 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
   const toggleBtn = document.getElementById('toggleBtn');
   const statusLabel = document.getElementById('statusLabel');
-  const timeSavedEl = document.getElementById('timeSaved');
 
   // Load initial state
-  chrome.storage.local.get(['enabled', 'timeSaved'], (result) => {
+  chrome.storage.local.get(['enabled'], (result) => {
     toggleBtn.checked = result.enabled !== false; // Default to true if undefined
     updateStatusLabel(toggleBtn.checked);
-    updateTimeSaved(result.timeSaved || 0);
   });
 
   // Handle toggle change
@@ -22,24 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     statusLabel.style.color = isEnabled ? '#38bdf8' : '#94a3b8';
   }
 
-  function updateTimeSaved(seconds) {
-    if (seconds < 60) {
-      timeSavedEl.textContent = Math.floor(seconds) + 's';
-    } else if (seconds < 3600) {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = Math.floor(seconds % 60);
-      timeSavedEl.textContent = `${minutes}m ${remainingSeconds}s`;
-    } else {
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      timeSavedEl.textContent = `${hours}h ${minutes}m`;
-    }
-  }
-
-  // Listen for updates to storage in case an ad is skipped while popup is open
+  // Listen for updates to storage in case the toggle is changed elsewhere
   chrome.storage.onChanged.addListener((changes, namespace) => {
-    if (namespace === 'local' && changes.timeSaved) {
-      updateTimeSaved(changes.timeSaved.newValue);
+    if (namespace === 'local' && changes.enabled) {
+      updateStatusLabel(changes.enabled.newValue);
     }
   });
 
